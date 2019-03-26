@@ -8,12 +8,12 @@ Module.register("MMM-videoPlay", {
 
     },
 
-    start: function(){
-        this.updateDom();
-        // setInterval(() => {
-        //     this.updateDom();
-        // }, this.config.updateInterval);
-    },
+    // start: function(){
+    //     this.updateDom();
+    //     // setInterval(() => {
+    //     //     this.updateDom();
+    //     // }, this.config.updateInterval);
+    // },
 
     getStyles: function(){
         return ["MMM-videoPlay.css"];
