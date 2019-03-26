@@ -7,11 +7,21 @@ module.exports = NodeHelper.create({
     socketNotificationReceived: function (notification, payload) {
         if (notification === "NEXT") {
             this.config = payload;
+            this.timeUpdate(payload);
+            
             setInterval(() => {
-                this.config.videoNum += 1;
-                if (this.config.videoNum >= 2) this.config.videoNum = 0;
-                this.updateDom();
+                this.timeUpdate(payload);
             }, this.config.updateInterval);
         }
+    },
+
+    timeUpdate: function (payload) {
+        this.config = payload;
+
+        this.config.videoNum += 1;
+        if (this.config.videoNum >= 2) this.config.videoNum = 0;
+
+        this.sendSocketNotification("TIME", this.config);
+
     }
 });
