@@ -22,7 +22,7 @@ Module.register("MMM-videoPlay", {
         video.onended = function(){
             this.config.videoNum += 1;
             if (this.config.videoNum >= 2) this.config.videoNum = 0;
-            wrapper.innerHTML(this.config.videoNum);
+            wrapper.innerHTML = this.config.videoNum;
             video.src = this.config.videoAddrDom + this.config.videoArray[this.config.videoNum];
             this.updateDom();
         }
