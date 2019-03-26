@@ -21,7 +21,7 @@ Module.register("MMM-videoPlay", {
     },
 
     getStyles: function(){
-        return ["videoPlay.css"];
+        return ["MMM-videoPlay.css"];
     },
 
     getDom: function () {
