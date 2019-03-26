@@ -14,6 +14,14 @@ Module.register("MMM-videoPlay", {
     //     //     this.updateDom();
     //     // }, this.config.updateInterval);
     // },
+    notificationReceived: function(notification, payload, sender) {
+        if (notification == "DOM_OBJECTS_CREATED") {
+            var temp_video = document.getElementById("VIDEO");
+            temp_video.onended = function(){
+                this.updateDom();
+            }
+        }
+    },
 
     getStyles: function(){
         return ["MMM-videoPlay.css"];
@@ -25,17 +33,18 @@ Module.register("MMM-videoPlay", {
 
         var wrapper = document.createElement("div");
         var video = document.createElement("video");
+        video.id = "VIDEO";
 
         video.src = this.config.videoAddrDom + this.config.videoArray[this.config.videoNum];
         video.autoplay = true;
         this.config.updateInterval = video.duration + 2;
-        // video.loop = this.config.loop;
-        // this.sendSocketNotification("NEXT", this.config);
 
         wrapper.innerText = this.config.videoNum;
         wrapper.appendChild(video);
 
-        
+        this.config.videoNum += 1;
+        if (this.config.videoNum >= 2) this.config.videoNum = 0;
+
         return wrapper;
     }
 });
