@@ -14,22 +14,21 @@ Module.register("MMM-videoPlay", {
     //     //     this.updateDom();
     //     // }, this.config.updateInterval);
     // },
-    notificationReceived: function(notification, payload, sender) {
+    notificationReceived: function (notification, payload, sender) {
         if (notification == "DOM_OBJECTS_CREATED") {
-            var temp_video = document.getElementById("VIDEO");
-            temp_video.onended = function(){
-                this.updateDom();
-            }
+
+            this.updateDom();
+
         }
     },
 
-    getStyles: function(){
+    getStyles: function () {
         return ["MMM-videoPlay.css"];
     },
 
     getDom: function () {
-        
-        
+
+
 
         var wrapper = document.createElement("div");
         var video = document.createElement("video");
