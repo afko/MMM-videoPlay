@@ -8,41 +8,31 @@ Module.register("MMM-videoPlay", {
 
     },
 
-    // start: function(){
-    //     
+    // // start: function(){
+    // //     
+    // // },
+
+    // notificationReceived: function (notification, payload, sender) {
+    //     if (notification == 'DOM_OBJECTS_CREATED') {
+    //         Log.log(this.name + "Created with " + this.config.updateInterval);
+    //         this.sendSocketNotification("START", this.config);
+    //     }
     // },
 
-    notificationReceived: function (notification, payload, sender) {
-        if (notification == 'DOM_OBJECTS_CREATED') {
-            Log.log(this.name + "Created with " + this.config.updateInterval);
-            this.sendSocketNotification("START", this.config);
-        }
-    },
-
     socketNotificationReceived: function (notification, payload) {
-        if (notification === "START") {
-            this.config = payload;
-            this.timeUpdate(payload);
-
-        } else if (notification === "TIME") {
-            this.config = payload;
-
-            setInterval(() => {
-                this.timeUpdate(this.config);
-            }, this.config.updateInterval);
-
+        if (notification === "UPDATE") {
             this.updateDom();
         }
     },
 
-    timeUpdate: function (payload) {
-        this.config = payload;
-        this.config.videoNum += 1;
-        if (this.config.videoNum >= 2) this.config.videoNum = 0;
+    // timeUpdate: function (payload) {
+    //     this.config = payload;
+    //     this.config.videoNum += 1;
+    //     if (this.config.videoNum >= 2) this.config.videoNum = 0;
 
-        this.sendSocketNotification("TIME", this.config);
+    //     this.sendSocketNotification("TIME", this.config);
 
-    },
+    // },
 
 
     getStyles: function () {
@@ -61,7 +51,13 @@ Module.register("MMM-videoPlay", {
         // video.src = this.config.videoAddrDom + this.config.videoArray[this.config.videoNum];
         video.src = this.config.videoArray[this.config.videoNum];
         video.autoplay = true;
-        this.config.updateInterval = video.duration + 2;
+        // this.config.updateInterval = video.duration + 2;
+
+        video.addEventListener("ended", function(){
+            this.config.videoNum += 1;
+            if (this.config.videoNum >= 2) this.config.videoNum = 0;
+            this.sendSocketNotification("UPDATE");
+        });
 
         wrapper.innerText = this.config.videoNum;
         wrapper.appendChild(video);
