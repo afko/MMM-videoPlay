@@ -21,6 +21,11 @@ Module.register("MMM-videoPlay", {
 
     socketNotificationReceived: function (notification, payload) {
         if (notification === "UPDATE") {
+            payload.addEventListener("ended", function () {
+                this.config.videoNum += 1;
+                if (this.config.videoNum >= 2) this.config.videoNum = 0;
+
+            });
             this.updateDom();
         }
     },
@@ -53,17 +58,13 @@ Module.register("MMM-videoPlay", {
         video.autoplay = true;
         // this.config.updateInterval = video.duration + 2;
 
-        video.addEventListener("ended", function(){
-            this.config.videoNum += 1;
-            if (this.config.videoNum >= 2) this.config.videoNum = 0;
-            this.sendSocketNotification("UPDATE");
-        });
 
+        this.sendSocketNotification("UPDATE", video);
         wrapper.innerText = this.config.videoNum;
         wrapper.appendChild(video);
 
         // this.config.videoNum += 1;
-        // if (this.config.videoNum >= 2) this.config.videoNum = 0;
+        // if (this.config.videoNum >= 2) this.config.videoqeoNum = 0;
 
         return wrapper;
     }
