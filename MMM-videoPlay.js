@@ -28,7 +28,7 @@ Module.register("MMM-videoPlay", {
             wrapText = document.createTextNode(this.config.videoNum);
             this.updateDom();
         }
-        wrapper.appendChild(wrapText);
+        wrapper.append(wrapText);
         wrapper.appendChild(video);
         return wrapper;
     }
