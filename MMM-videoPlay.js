@@ -2,7 +2,7 @@ Module.register("MMM-videoPlay", {
     defaults: {
         videoNum: 0,
         videoAddrDom: 'http://localhost/',
-        videoArray: ['ONE3.mp4', 'ONE2.mp4', 'ONE1.mp4'],
+        videoArray: ['http://clips.vorwaerts-gmbh.de/VfE_html5.mp4', 'http://localhost/ONE2.mp4', 'http://localhost/ONE1.mp4'],
         loop: true,
         updateInterval: 0
 
@@ -35,7 +35,8 @@ Module.register("MMM-videoPlay", {
         var video = document.createElement("video");
         video.id = "VIDEO";
 
-        video.src = this.config.videoAddrDom + this.config.videoArray[this.config.videoNum];
+        // video.src = this.config.videoAddrDom + this.config.videoArray[this.config.videoNum];
+        video.src = this.config.videoArray[this.config.videoNum];
         video.autoplay = true;
         this.config.updateInterval = video.duration + 2;
 
