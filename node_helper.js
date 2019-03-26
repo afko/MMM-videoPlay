@@ -18,7 +18,7 @@ module.exports = NodeHelper.create({
     setTime: function (payload) {
         this.config = payload;
 
-        var tempVideo = document.createElement('video');
+        var tempVideo = window.document.createElement('video');
         tempVideo.src = this.config.videoAddrDom + this.config.videoArray[this.config.videoNum];
 
         this.config.updateInterval = tempVideo.duration + 2;
