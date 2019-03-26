@@ -16,10 +16,19 @@ Module.register("MMM-videoPlay", {
     // },
     notificationReceived: function (notification, payload, sender) {
         if (notification == "DOM_OBJECTS_CREATED") {
+            this.sendSocketNotification("TIME", this.config);
+        }
+    },
+
+    socketNotificationReceived: function (notification, payload) {
+        if (notification === "TIME") {
+            this.config = payload;
+            this.config.updateInterval = document.getElementById("VIDEO").duration;
+
             setInterval(() => {
-                this.updateDom();
-            }, video.duration + 2);
-            
+               this.updateDom();
+               this.sendnotification("TIME", "DOM_OBJECTS_CREATED");
+            }, this.config.updateInterval);
         }
     },
 
