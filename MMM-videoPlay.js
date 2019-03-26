@@ -10,9 +10,9 @@ Module.register("MMM-videoPlay", {
 
     start: function(){
         this.updateDom();
-        setInterval(() => {
-            this.updateDom();
-        }, this.config.updateInterval);
+        // setInterval(() => {
+        //     this.updateDom();
+        // }, this.config.updateInterval);
     },
 
     getStyles: function(){
