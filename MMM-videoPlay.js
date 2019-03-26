@@ -4,6 +4,7 @@ Module.register("MMM-videoPlay", {
         videoAddrDom: 'http://localhost/',
         videoArray: ['ONE3.mp4', 'ONE2.mp4', 'ONE1.mp4'],
         loop: true,
+        updateInterval: 0
 
     },
 
@@ -20,12 +21,10 @@ Module.register("MMM-videoPlay", {
 
         video.src = this.config.videoAddrDom + this.config.videoArray[this.config.videoNum];
         video.autoplay = true;
+        this.config.updateInterval = video.duration + 2;
         // video.loop = this.config.loop;
-        video.onended = function(){
-            this.config.videoNum += 1;
-            if (this.config.videoNum >= 2) this.config.videoNum = 0;
-            this.updateDom();
-        }
+        this.sendSocketNotification("NEXT", this.config);
+
         wrapper.innerText = this.config.videoNum;
         wrapper.appendChild(video);
         return wrapper;
