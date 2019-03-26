@@ -49,7 +49,7 @@ Module.register("MMM-videoPlay", {
         video.id = "VIDEO";
 
         // video.src = this.config.videoAddrDom + this.config.videoArray[this.config.videoNum];
-        video.src = this.config.videoArray[this.config.videoNum];
+        video.src = this.config.video_list[this.config.videoNum];
         video.autoplay = true;
         // this.config.updateInterval = video.duration + 2;
 
