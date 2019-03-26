@@ -13,8 +13,10 @@ Module.register("MMM-videoPlay", {
 
     getDom: function () {
         
-        var wrapper = document.createElement("div")
+        var wrapper = document.createElement("div");
         var video = document.createElement("video");
+
+        
 
         video.src = this.config.videoAddrDom + this.config.videoArray[this.config.videoNum];
         video.autoplay = true;
@@ -22,10 +24,11 @@ Module.register("MMM-videoPlay", {
         video.onended = function(){
             this.config.videoNum += 1;
             if (this.config.videoNum >= 2) this.config.videoNum = 0;
-            wrapper.innerHTML = this.config.videoNum;
             video.src = this.config.videoAddrDom + this.config.videoArray[this.config.videoNum];
+            wrapText = document.createTextNode(this.config.videoNum);
             this.updateDom();
         }
+        wrapper.appendChild(wrapText);
         wrapper.appendChild(video);
         return wrapper;
     }
