@@ -7,7 +7,7 @@ module.exports = NodeHelper.create({
     socketNotificationReceived: function (notification, payload) {
         if (notification === "START") {
             this.config = payload;
-            this.setTime(payload);
+            this.setTime();
             setInterval(() => {
                 this.setTime(payload);
             }, this.config.updateInterval);
@@ -15,7 +15,7 @@ module.exports = NodeHelper.create({
         }
     },
 
-    setTime: function (payload) {
+    setTime: function () {
         this.config = payload;
 
         var tempVideo = document.createElement('video');
