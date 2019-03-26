@@ -2,35 +2,48 @@ Module.register("MMM-videoPlay", {
     defaults: {
         videoNum: 0,
         videoAddrDom: 'http://localhost/',
-        videoArray: ['http://clips.vorwaerts-gmbh.de/VfE_html5.mp4', 'http://localhost/ONE2.mp4', 'http://localhost/ONE1.mp4'],
+        video_list: ['http://clips.vorwaerts-gmbh.de/VfE_html5.mp4', 'http://localhost/ONE2.mp4', 'http://localhost/ONE1.mp4'],
         loop: true,
         updateInterval: 0
 
     },
 
     // start: function(){
-    //     this.updateDom();
-    //     // setInterval(() => {
-    //     //     this.updateDom();
-    //     // }, this.config.updateInterval);
+    //     
     // },
+
     notificationReceived: function (notification, payload, sender) {
-        if (notification == "DOM_OBJECTS_CREATED") {
-            this.sendSocketNotification("TIME", this.config);
+        if (notification == 'DOM_OBJECTS_CREATED') {
+            Log.log(this.name + "Created with " + this.config.updateInterval);
+            this.sendSocketNotification("START", this.config);
         }
     },
 
     socketNotificationReceived: function (notification, payload) {
-        if (notification === "TIME") {
+        if (notification === "START") {
             this.config = payload;
-            this.config.updateInterval = document.getElementById("VIDEO").duration;
+            this.timeUpdate(payload);
+
+        } else if (notification === "TIME") {
+            this.config = payload;
 
             setInterval(() => {
-               this.updateDom();
-               this.sendnotification("TIME", "DOM_OBJECTS_CREATED");
+                this.timeUpdate(this.config);
             }, this.config.updateInterval);
+
+            this.updateDom();
         }
     },
+
+    timeUpdate: function (payload) {
+        this.config = payload;
+        this.config.videoNum += 1;
+        if (this.config.videoNum >= 2) this.config.videoNum = 0;
+
+        this.sendSocketNotification("TIME", this.config);
+
+    },
+
 
     getStyles: function () {
         return ["MMM-videoPlay.css"];
@@ -41,6 +54,7 @@ Module.register("MMM-videoPlay", {
 
 
         var wrapper = document.createElement("div");
+
         var video = document.createElement("video");
         video.id = "VIDEO";
 
@@ -52,8 +66,8 @@ Module.register("MMM-videoPlay", {
         wrapper.innerText = this.config.videoNum;
         wrapper.appendChild(video);
 
-        this.config.videoNum += 1;
-        if (this.config.videoNum >= 2) this.config.videoNum = 0;
+        // this.config.videoNum += 1;
+        // if (this.config.videoNum >= 2) this.config.videoNum = 0;
 
         return wrapper;
     }
