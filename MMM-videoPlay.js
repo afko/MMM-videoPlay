@@ -2,7 +2,7 @@ Module.register("MMM-videoPlay", {
     defaults: {
         videoNum: 0,
         videoAddrDom: 'http://localhost/',
-        videoArray: ['ONE1.mp4', 'ONE2.mp4', 'ONE3.mp4'],
+        videoArray: ['ONE3.mp4', 'ONE2.mp4', 'ONE1.mp4'],
         loop: true,
 
     },
