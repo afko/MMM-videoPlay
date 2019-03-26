@@ -20,15 +20,13 @@ Module.register("MMM-videoPlay", {
 
         video.src = this.config.videoAddrDom + this.config.videoArray[this.config.videoNum];
         video.autoplay = true;
-        video.loop = this.config.loop;
+        // video.loop = this.config.loop;
         video.onended = function(){
             this.config.videoNum += 1;
             if (this.config.videoNum >= 2) this.config.videoNum = 0;
-            video.src = this.config.videoAddrDom + this.config.videoArray[this.config.videoNum];
-            wrapText = document.createTextNode(this.config.videoNum);
             this.updateDom();
         }
-        wrapper.append(wrapText);
+        wrapper.innerText = this.config.videoNum;
         wrapper.appendChild(video);
         return wrapper;
     }
