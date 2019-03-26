@@ -16,9 +16,10 @@ Module.register("MMM-videoPlay", {
     // },
     notificationReceived: function (notification, payload, sender) {
         if (notification == "DOM_OBJECTS_CREATED") {
-
-            this.updateDom();
-
+            setInterval(() => {
+                this.updateDom();
+            }, this.config.updateInterval);
+            
         }
     },
 
